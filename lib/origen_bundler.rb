@@ -1,14 +1,16 @@
 require "origen_bundler/version"
-require "byebug"
 
 module OrigenBundler
   class << self
 
     def configure_for_origen(dependencies)
       return unless origen_application?
-      byebug
       puts "Plugin is working!"
-      exit 0
+      ENV['BUNDLE_BIN'] = File.join(origen_root, 'lbin')
+    end
+
+    def origen_root
+      @origen_root
     end
 
     def origen_application?
