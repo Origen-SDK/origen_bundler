@@ -1,10 +1,12 @@
 require "origen_bundler/version"
 require "origen/site_config"
+require "pathname"
 
 module OrigenBundler
   class << self
     def configure_for_origen(dependencies)
       return unless origen_application?
+      $_origen_invocation_pwd ||= Pathname.pwd
       return unless Origen.site_config.gem_manage_bundler
       # If gems have been installed to the app, always use them
       vendor_gems = File.join(origen_root, 'vendor', 'gems')
