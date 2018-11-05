@@ -1,4 +1,5 @@
 require "origen_bundler/version"
+require "byebug"
 
 module OrigenBundler
   class << self
