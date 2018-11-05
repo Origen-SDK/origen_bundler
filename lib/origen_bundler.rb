@@ -1,13 +1,18 @@
 require "origen_bundler/version"
-require "byebug"
+require "origen/site_config"
 
 module OrigenBundler
   class << self
-
     def configure_for_origen(dependencies)
       return unless origen_application?
-      puts "Plugin is not working!"
-      byebug
+      return unless Origen.site_config.gem_manage_bundler
+      # If gems have been installed to the app, always use them
+      vendor_gems = File.join(origen_root, 'vendor', 'gems')
+      if File.exist?(vendor_gems)
+        ENV['BUNDLE_PATH'] = vendor_gems
+      else
+        ENV['BUNDLE_PATH'] = File.expand_path(Origen.site_config.gem_install_dir)
+      end
       ENV['BUNDLE_BIN'] = File.join(origen_root, 'lbin')
     end
 
