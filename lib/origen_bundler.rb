@@ -3,8 +3,9 @@ require "origen_bundler/version"
 module OrigenBundler
   class << self
 
-    def configure_for_origen
+    def configure_for_origen(dependencies)
       return unless origen_application?
+      byebug
       puts "Plugin is working!"
       exit 0
     end
